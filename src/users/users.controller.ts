@@ -67,19 +67,16 @@ export class UsersController {
   @ApiResponse({ status: 404, description: 'User not found' })
   async update(@Request() req, @Body() user: UpdateUserDto) {
     try {
-      // Extract the `Authorization` token from the request headers
-      const authToken = req.headers['authorization'];
-  
-      // Check if the auth token is missing or null
-      if (!authToken) {
-        throw new UnauthorizedException('Authorization token is missing or empty.');
-      }
-      
-      setLog
       // Extract `id` from the JWT token payload
-      const userId = req.user.id;
+      const userId = req.user.userId;
   
       if (!userId) {
+        setLog({
+          level: 'error',
+          method: 'UsersController.update',
+          message: `User id not found in JWT token. ${JSON.stringify(req.user)}`,
+        });
+
         throw new UnauthorizedException('User ID not found in token.');
       }
   
