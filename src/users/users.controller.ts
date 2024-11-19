@@ -83,7 +83,7 @@ export class UsersController {
       const result = await this.usersService.update(userId, user);
       return successResponse('User updated successfully', result);
     } catch (error) {
-      return errorResponse('User update failed', error.message);
+      return errorResponse('User updated failed', error.message);
     }
   }
 }

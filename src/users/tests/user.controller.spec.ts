@@ -1,7 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { UsersController } from '../users.controller';
 import { UsersService } from '../users.service';
-import { User } from '../entity/user.entity';
 import { successResponse, errorResponse } from '../../common/response.helper';
 import { UserResultDto } from '../dto/user.dto';
 import { UpdateUserDto } from 'users/dto/update-user.dto';
@@ -17,7 +16,7 @@ describe('UsersController', () => {
         {
           provide: UsersService,
           useValue: {
-            // mocking the UserService function
+            // Mocking UsersService methods
             findAll: jest.fn(),
             findOne: jest.fn(),
             update: jest.fn(),
@@ -46,13 +45,9 @@ describe('UsersController', () => {
         },
       ];
 
-      // Mock the service's findAll method
       jest.spyOn(usersService, 'findAll').mockResolvedValue(users);
 
-      // Call the controller's findAll method
       const result = await usersController.findAll();
-
-      // Assertions
       expect(result).toEqual(successResponse('Get all user', users));
       expect(usersService.findAll).toHaveBeenCalledTimes(1);
     });
@@ -60,7 +55,7 @@ describe('UsersController', () => {
 
   describe('findOne', () => {
     it('should return a user successfully', async () => {
-      const user: UserResultDto = { id: '1', name: 'John Doe', email: 'john@example.com'};
+      const user: UserResultDto = { id: '1', name: 'John Doe', email: 'john@example.com' };
       jest.spyOn(usersService, 'findOne').mockResolvedValue(user);
 
       const result = await usersController.findOne('1');
@@ -85,18 +80,17 @@ describe('UsersController', () => {
   describe('update', () => {
     it('should update the user successfully', async () => {
       const userId = '1';
-      const userDto = { name: 'Updated Name', email: 'updated@example.com' };
+      const userDto: UpdateUserDto = { name: 'Updated Name', email: 'updated@example.com' };
       const updatedUser: UserResultDto = {
         id: userId,
         name: 'Updated Name',
         email: 'updated@example.com',
       };
 
-      // Mock the UsersService.update method
       jest.spyOn(usersService, 'update').mockResolvedValue(updatedUser);
 
-      // Mock the request with a user ID from JWT token
-      const req = { user: { id: userId } };
+      // Mock the request with a userId from JWT token
+      const req = { user: { userId: userId } };
 
       const result = await usersController.update(req, userDto);
 
@@ -106,9 +100,9 @@ describe('UsersController', () => {
     });
 
     it('should return an error if the user ID is missing in the token', async () => {
-      const userDto = { name: 'Updated Name', email: 'updated@example.com' };
+      const userDto: UpdateUserDto = { name: 'Updated Name', email: 'updated@example.com' };
       
-      // Mock the request without a user ID
+      // Mock the request without a userId
       const req = { user: {} };
 
       const result = await usersController.update(req, userDto);
@@ -118,12 +112,11 @@ describe('UsersController', () => {
 
     it('should return an error if update fails due to no valid fields provided', async () => {
       const userId = '1';
-      const userDto = {}; // Empty DTO, no fields to update
+      const userDto: UpdateUserDto = {}; // Empty DTO, no fields to update
 
-      // Mock the UsersService.update method to throw an error
       jest.spyOn(usersService, 'update').mockRejectedValue(new Error('No valid fields provided for update.'));
 
-      const req = { user: { id: userId } };
+      const req = { user: { userId: userId } };
 
       const result = await usersController.update(req, userDto);
 
@@ -133,12 +126,11 @@ describe('UsersController', () => {
 
     it('should return an error if the user is not found for update', async () => {
       const userId = '1';
-      const userDto = { name: 'Updated Name', email: 'updated@example.com' };
+      const userDto: UpdateUserDto = { name: 'Updated Name', email: 'updated@example.com' };
 
-      // Mock the UsersService.update method to throw an error
       jest.spyOn(usersService, 'update').mockRejectedValue(new Error('User not found'));
 
-      const req = { user: { id: userId } };
+      const req = { user: { userId: userId } };
 
       const result = await usersController.update(req, userDto);
 
@@ -147,12 +139,11 @@ describe('UsersController', () => {
 
     it('should handle unexpected errors', async () => {
       const userId = '1';
-      const userDto = { name: 'Updated Name', email: 'updated@example.com' };
+      const userDto: UpdateUserDto = { name: 'Updated Name', email: 'updated@example.com' };
 
-      // Mock the UsersService.update method to throw a general error
       jest.spyOn(usersService, 'update').mockRejectedValue(new Error('Database error'));
 
-      const req = { user: { id: userId } };
+      const req = { user: { userId: userId } };
 
       const result = await usersController.update(req, userDto);
 
