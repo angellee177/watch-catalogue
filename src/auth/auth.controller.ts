@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UserResultDto } from 'users/dto/user.dto';
 
-@ApiTags('auth/v1') // Group endpoints under the "auth" tag
+@ApiTags('Auth') // Group endpoints under the "auth" tag
 @Controller('auth/v1')
 export class AuthController {
   constructor(

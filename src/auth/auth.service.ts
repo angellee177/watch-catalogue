@@ -52,23 +52,23 @@ export class AuthService {
         });
 
         // Save the new user to the database
-        await this.usersService.create(newUser);
+        const user = await this.usersService.create(newUser);
         setLog({
             level: 'info',
             method: 'AuthService.register',
             message: 'User saved to the database successfully',
         });
 
-        // Return JWT Token
-        const payload = { userId: newUser.id, email: newUser.email };
-        const token = this.jwtService.sign(payload);
+        // Prepare the payload to include the userId and email
+        const payload = { userId: user.id, email: user.email };
         setLog({
           level: 'info',
           method: 'AuthService.register',
           message: 'JWT token generated successfully',
         });
-    
-        return { access_token: token };
+
+        // Return the JWT token with userId and email as payload
+        return { access_token: this.jwtService.sign(payload) };
       } catch (error) {
           setLog({
               level: 'error',
