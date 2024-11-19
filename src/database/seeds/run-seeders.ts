@@ -3,6 +3,7 @@ import { connectionSource } from "../../config/typeorm"; // Adjust path as neede
 import { UserSeeder } from "./User.seed"; // Import your UserSeeder
 import { CountrySeeder } from "./Country.seed"; // Import your CountrySeeder
 import { setLog } from "../../common/logger.helper"; // Adjust path as needed
+import { CurrencySeeder } from "./Currency.seed";
 
 // Function to load and run seeders
 const runSeeders = async () => {
@@ -18,7 +19,7 @@ const runSeeders = async () => {
       message: 'DataSource has been initialized!',
     });
 
-    // Manually run each seeder
+    // Run User Seeder
     const userSeeder = new UserSeeder(dataSource);
     setLog({
       level: 'info',
@@ -35,6 +36,15 @@ const runSeeders = async () => {
       message: 'Running Country Seeder...',
     });
     await countrySeeder.run();
+
+    // Run Currency Seeder
+    const currencySeeder = new CurrencySeeder(dataSource);
+    setLog({
+      level: 'info',
+      method: 'runSeeders',
+      message: 'Running Currency Seeder...',
+    });
+    await currencySeeder.run();
 
     setLog({
       level: 'info',

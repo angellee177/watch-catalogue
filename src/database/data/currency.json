@@ -1,0 +1,308 @@
+[
+    {
+        "code": "LRD",
+        "name": "Liberian Dollar",
+        "symbol": "$",
+        "countryCode": "LR"
+    },
+    {
+        "code": "LSL",
+        "name": "Lesotho Loti",
+        "symbol": "",
+        "countryCode": "LS"
+    },
+    {
+        "code": "LTL",
+        "name": "Lithuanian Litas",
+        "symbol": "Lt",
+        "countryCode": "LT"
+    },
+    {
+        "code": "LUF",
+        "name": "Luxembourg Franc",
+        "symbol": "₣",
+        "countryCode": "LU"
+    },
+    {
+        "code": "LVL",
+        "name": "Latvian Lats",
+        "symbol": "Ls",
+        "countryCode": "LV"
+    },
+    {
+        "code": "LYD",
+        "name": "Libyan Dinar",
+        "symbol": "",
+        "countryCode": "LY"
+    },
+    {
+        "code": "MAD",
+        "name": "Moroccan Dirham",
+        "symbol": "د.م.",
+        "countryCode": "MA"
+    },
+    {
+        "code": "MDL",
+        "name": "Moldovan Leu",
+        "symbol": "",
+        "countryCode": "MD"
+    },
+    {
+        "code": "MGA",
+        "name": "Malagasy Ariary",
+        "symbol": "",
+        "countryCode": "MG"
+    },
+    {
+        "code": "MKD",
+        "name": "Macedonian Denar",
+        "symbol": "ден",
+        "countryCode": "MK"
+    },
+    {
+        "code": "MMK",
+        "name": "Myanmar Kyat",
+        "symbol": "",
+        "countryCode": "MM"
+    },
+    {
+        "code": "MNT",
+        "name": "Mongolian Tugrik",
+        "symbol": "₮",
+        "countryCode": "MN"
+    },
+    {
+        "code": "MOP",
+        "name": "Macanese Pataca",
+        "symbol": "P",
+        "countryCode": "MO"
+    },
+    {
+        "code": "MUR",
+        "name": "Mauritian Rupee",
+        "symbol": "₨",
+        "countryCode": "MU"
+    },
+    {
+        "code": "MVR",
+        "name": "Maldivian Rufiyaa",
+        "symbol": "Rf",
+        "countryCode": "MV"
+    },
+    {
+        "code": "MWK",
+        "name": "Malawian Kwacha",
+        "symbol": "MK",
+        "countryCode": "MW"
+    },
+    {
+        "code": "MXN",
+        "name": "Mexican Peso",
+        "symbol": "$",
+        "countryCode": "MX"
+    },
+    {
+        "code": "MYR",
+        "name": "Malaysian Ringgit",
+        "symbol": "RM",
+        "countryCode": "MY"
+    },
+    {
+        "code": "MZN",
+        "name": "Mozambican Metical",
+        "symbol": "MTn",
+        "countryCode": "MZ"
+    },
+    {
+        "code": "NAD",
+        "name": "Namibian Dollar",
+        "symbol": "$",
+        "countryCode": "NA"
+    },
+    {
+        "code": "NGN",
+        "name": "Nigerian Naira",
+        "symbol": "₦",
+        "countryCode": "NG"
+    },
+    {
+        "code": "NIO",
+        "name": "Nicaraguan Córdoba",
+        "symbol": "C$",
+        "countryCode": "NI"
+    },
+    {
+        "code": "NPR",
+        "name": "Nepalese Rupee",
+        "symbol": "Rs",
+        "countryCode": "NP"
+    },
+    {
+        "code": "NZD",
+        "name": "New Zealand Dollar",
+        "symbol": "$",
+        "countryCode": "NZ"
+    },
+    {
+        "code": "OMR",
+        "name": "Omani Rial",
+        "symbol": "ر.ع.",
+        "countryCode": "OM"
+    },
+    {
+        "code": "PAB",
+        "name": "Panamanian Balboa",
+        "symbol": "B/.",
+        "countryCode": "PA"
+    },
+    {
+        "code": "PEN",
+        "name": "Peruvian Nuevo Sol",
+        "symbol": "S/.",
+        "countryCode": "PE"
+    },
+    {
+        "code": "PGK",
+        "name": "Papua New Guinean Kina",
+        "symbol": "K",
+        "countryCode": "PG"
+    },
+    {
+        "code": "PHP",
+        "name": "Philippine Peso",
+        "symbol": "₱",
+        "countryCode": "PH"
+    },
+    {
+        "code": "PKR",
+        "name": "Pakistani Rupee",
+        "symbol": "₨",
+        "countryCode": "PK"
+    },
+    {
+        "code": "PLN",
+        "name": "Polish Zloty",
+        "symbol": "zł",
+        "countryCode": "PL"
+    },
+    {
+        "code": "PYG",
+        "name": "Paraguayan Guarani",
+        "symbol": "₲",
+        "countryCode": "PY"
+    },
+    {
+        "code": "QAR",
+        "name": "Qatari Rial",
+        "symbol": "ر.ق",
+        "countryCode": "QA"
+    },
+    {
+        "code": "RON",
+        "name": "Romanian Leu",
+        "symbol": "lei",
+        "countryCode": "RO"
+    },
+    {
+        "code": "RSD",
+        "name": "Serbian Dinar",
+        "symbol": "дин.",
+        "countryCode": "RS"
+    },
+    {
+        "code": "RUB",
+        "name": "Russian Ruble",
+        "symbol": "₽",
+        "countryCode": "RU"
+    },
+    {
+        "code": "RWF",
+        "name": "Rwandan Franc",
+        "symbol": "",
+        "countryCode": "RW"
+    },
+    {
+        "code": "SAR",
+        "name": "Saudi Riyal",
+        "symbol": "ر.س",
+        "countryCode": "SA"
+    },
+    {
+        "code": "SBD",
+        "name": "Solomon Islands Dollar",
+        "symbol": "$",
+        "countryCode": "SB"
+    },
+    {
+        "code": "SCR",
+        "name": "Seychellois Rupee",
+        "symbol": "₨",
+        "countryCode": "SC"
+    },
+    {
+        "code": "SDG",
+        "name": "Sudanese Pound",
+        "symbol": "ج.س.",
+        "countryCode": "SD"
+    },
+    {
+        "code": "SEK",
+        "name": "Swedish Krona",
+        "symbol": "kr",
+        "countryCode": "SE"
+    },
+    {
+        "code": "SGD",
+        "name": "Singapore Dollar",
+        "symbol": "$",
+        "countryCode": "SG"
+    },
+    {
+        "code": "SHP",
+        "name": "Saint Helena Pound",
+        "symbol": "£",
+        "countryCode": "SH"
+    },
+    {
+        "code": "SLL",
+        "name": "Sierra Leonean Leone",
+        "symbol": "Le",
+        "countryCode": "SL"
+    },
+    {
+        "code": "SOS",
+        "name": "Somali Shilling",
+        "symbol": "Sh",
+        "countryCode": "SO"
+    },
+    {
+        "code": "SRD",
+        "name": "Surinamese Dollar",
+        "symbol": "$",
+        "countryCode": "SR"
+    },
+    {
+        "code": "SSP",
+        "name": "South Sudanese Pound",
+        "symbol": "£",
+        "countryCode": "SS"
+    },
+    {
+        "code": "STN",
+        "name": "São Tomé and Príncipe Dobra",
+        "symbol": "",
+        "countryCode": "ST"
+    },
+    {
+        "code": "SVC",
+        "name": "Salvadoran Colón",
+        "symbol": "₡",
+        "countryCode": "SV"
+    },
+    {
+        "code": "SYP",
+        "name": "Syrian Pound",
+        "symbol": "£",
+        "countryCode": "SY"
+    }
+]
