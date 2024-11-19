@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
+import { Currency } from "currency/entity/currency.entity";
 
 @Entity("country")
 export class Country {
@@ -23,6 +24,11 @@ export class Country {
     })
     @Column()
     code: string;
+
+    // using bidirectional relationship
+    @OneToOne(() => Currency, (currency) => currency.country)
+    @ApiProperty({ type: () => Currency, description: 'The currency associated with this country' })
+    currencies: Currency[];
 
     @ApiProperty({
         description: "Timestamp when the country was created",
