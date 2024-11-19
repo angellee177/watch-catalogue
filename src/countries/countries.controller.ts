@@ -3,7 +3,7 @@ import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiParam, ApiBearerAuth } 
 import { CountryService } from './countries.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { successResponse, errorResponse } from '../common/response.helper';
-import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @ApiTags('Countries')
 @Controller('countries/v1')
