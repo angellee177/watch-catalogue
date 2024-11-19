@@ -1,6 +1,8 @@
 import { DataSource } from "typeorm";
-import { connectionSource } from "../../config/typeorm"; // Adjust the path as needed
+import { connectionSource } from "../../config/typeorm"; // Adjust path as needed
 import { UserSeeder } from "./User.seed"; // Import your UserSeeder
+import { CountrySeeder } from "./Country.seed"; // Import your CountrySeeder
+import { setLog } from "../../common/logger.helper"; // Adjust path as needed
 
 // Function to load and run seeders
 const runSeeders = async () => {
@@ -10,22 +12,44 @@ const runSeeders = async () => {
   try {
     // Initialize TypeORM connection
     await dataSource.initialize();
-    console.log("DataSource has been initialized!");
+    setLog({
+      level: 'info',
+      method: 'runSeeders',
+      message: 'DataSource has been initialized!',
+    });
 
     // Manually run each seeder
     const userSeeder = new UserSeeder(dataSource);
-    console.log("Running User Seeder...");
+    setLog({
+      level: 'info',
+      method: 'runSeeders',
+      message: 'Running User Seeder...',
+    });
     await userSeeder.run();
 
-    // You can add other seeders here as well
-    // const anotherSeeder = new AnotherSeeder(dataSource);
-    // console.log("Running Another Seeder...");
-    // await anotherSeeder.run();
+    // Run Country Seeder
+    const countrySeeder = new CountrySeeder(dataSource);
+    setLog({
+      level: 'info',
+      method: 'runSeeders',
+      message: 'Running Country Seeder...',
+    });
+    await countrySeeder.run();
 
-    console.log("All seeders have been run!");
+    setLog({
+      level: 'info',
+      method: 'runSeeders',
+      message: 'All seeders have been run!',
+    });
+
     await dataSource.destroy(); // Disconnect from the database once done
   } catch (error) {
-    console.error("Error during seeding:", error);
+    setLog({
+      level: 'error',
+      method: 'runSeeders',
+      message: 'Error during seeding',
+      error: error as Error,
+    });
   }
 };
 
