@@ -1,5 +1,5 @@
-import { Controller, Get, Post, Param, Body, HttpStatus, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get, Post, Param, Body, HttpStatus, UseGuards, Query } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiParam, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { CountryService } from './countries.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { successResponse, errorResponse } from '../common/response.helper';
@@ -34,10 +34,19 @@ export class CountryController {
     @UseGuards(JwtAuthGuard)
     @Get()
     @ApiOperation({ summary: 'Get all countries' })
+    @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number' })
+    @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Number of items per page' })
     @ApiResponse({ status: 200, description: 'List of countries' })
-    async getAllCountries() {
+    async getAllCountries(
+        @Query('page') page: number = 1,
+        @Query('limit') limit: number = 25,
+    ) {
         try {
-            const countries = await this.countryService.getAllCountries();
+            const countries = await this.countryService.getAllCountries(
+                page,
+                limit,
+            );
+
             return successResponse('Countries fetched successfully', countries);
         } catch (error) {
             return errorResponse('Failed to fetch countries', error.message);

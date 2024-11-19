@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
-import { Currency } from "currency/entity/currency.entity";
+import { Currency } from "../../currency/entity/currency.entity";
 
 @Entity("country")
 export class Country {

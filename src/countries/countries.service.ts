@@ -42,23 +42,31 @@ export class CountryService {
         }
     }
 
-    async getAllCountries(): Promise<Country[]> {
+    // Find all countries with pagination
+    async getAllCountries(page: number = 1, limit: number = 25) {
         try {
-            setLog({
-                level: 'info',
-                method: 'CountryService.getAllCountries',
-                message: 'Fetching all countries',
-            });
+        // Fetch countries with pagination
+        const [countries, total] = await this.countryRepository.findAndCount({
+            skip: (page - 1) * limit,  // Skip records based on page
+            take: limit,  // Limit the number of records returned
+        });
 
-            return this.countryRepository.find();
+        return {
+            data: countries,  // Return countries directly
+            meta: {
+                total,  // Total number of countries
+                page,   // Current page number
+                limit,  // Limit per page (25 by default)
+            },
+        };
         } catch (error) {
-            setLog({
-                level: 'error',
-                method: 'CountryService.getAllCountries',
-                message: 'Error while fetching countries',
-                error,
-            });
-            throw error;
+        setLog({
+            level: 'error',
+            method: 'CountryService.getAllCountries',
+            message: 'Error while fetching countries',
+            error,
+        });
+        throw error;
         }
     }
 

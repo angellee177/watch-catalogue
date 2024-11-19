@@ -1,12 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CountryController } from '../countries.controller';
 import { CountryService } from '../countries.service';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CreateCountryDto } from '../dto/create-country.dto';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
+import { NotFoundException } from '@nestjs/common';
 
 describe('CountryController', () => {
-  let countryController: CountryController;
-  let countryService: CountryService;
+  let controller: CountryController;
+  let service: CountryService;
 
   const mockCountryService = {
     createCountry: jest.fn(),
@@ -17,103 +18,103 @@ describe('CountryController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CountryController],
-      providers: [
-        { provide: CountryService, useValue: mockCountryService },
-      ],
-    }).compile();
+      providers: [{ provide: CountryService, useValue: mockCountryService }],
+    })
+      .overrideGuard(JwtAuthGuard)
+      .useValue({ canActivate: () => true }) // Mock JWT guard to always allow
+      .compile();
 
-    countryController = module.get<CountryController>(CountryController);
-    countryService = module.get<CountryService>(CountryService);
+    controller = module.get<CountryController>(CountryController);
+    service = module.get<CountryService>(CountryService);
+  });
+
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+    expect(service).toBeDefined();
   });
 
   describe('createCountry', () => {
-    it('should create a country successfully', async () => {
-      const createCountryDto: CreateCountryDto = {
-        name: 'Country Name',
-        code: 'CN',
-      };
+    it('should create a new country', async () => {
+      const createCountryDto: CreateCountryDto = { name: 'Testland', code: 'TL' };
+      const mockResponse = { id: '1', ...createCountryDto };
+      mockCountryService.createCountry.mockResolvedValue(mockResponse);
 
-      const result = { id: '1', name: 'Country Name', code: 'CN' };
-
-      // Mock service
-      countryService.createCountry = jest.fn().mockResolvedValue(result);
-
-      const response = await countryController.createCountry(createCountryDto);
-
-      expect(response).toEqual({
-        statusCode: 201,
+      const result = await controller.createCountry(createCountryDto);
+      expect(result).toEqual({
+        success: true,
         message: 'Country successfully created',
-        data: result,
+        result: mockResponse,
       });
-      expect(countryService.createCountry).toHaveBeenCalledWith(createCountryDto.name, createCountryDto.code);
+      expect(mockCountryService.createCountry).toHaveBeenCalledWith('Testland', 'TL');
     });
 
-    it('should throw BadRequestException if country creation fails', async () => {
-      const createCountryDto: CreateCountryDto = {
-        name: 'Country Name',
-        code: 'CN',
-      };
+    it('should return an error response if creation fails', async () => {
+      const createCountryDto: CreateCountryDto = { name: 'Testland', code: 'TL' };
+      mockCountryService.createCountry.mockRejectedValue(new Error('Creation failed'));
 
-      // Mock service to throw error
-      countryService.createCountry = jest.fn().mockRejectedValue(new Error('Failed to create country'));
-
-      await expect(countryController.createCountry(createCountryDto)).rejects.toThrow(BadRequestException);
+      const result = await controller.createCountry(createCountryDto);
+      expect(result).toEqual({
+        success: false,
+        message: 'Failed to create country',
+        error: 'Creation failed',
+      });
     });
   });
 
   describe('getAllCountries', () => {
-    it('should return a list of countries', async () => {
-      const countries = [
-        { id: '1', name: 'Country 1', code: 'C1' },
-        { id: '2', name: 'Country 2', code: 'C2' },
-      ];
+    it('should fetch all countries with pagination', async () => {
+      const mockResponse = {
+        data: [{ id: '1', name: 'Testland', code: 'TL' }],
+        meta: { total: 1, page: 1, limit: 25 },
+      };
+      mockCountryService.getAllCountries.mockResolvedValue(mockResponse);
 
-      // Mock service
-      countryService.getAllCountries = jest.fn().mockResolvedValue(countries);
-
-      const response = await countryController.getAllCountries();
-
-      expect(response).toEqual({
-        statusCode: 200,
+      const result = await controller.getAllCountries(1, 25);
+      expect(result).toEqual({
+        success: true,
         message: 'Countries fetched successfully',
-        data: countries,
+        result: mockResponse,
       });
-      expect(countryService.getAllCountries).toHaveBeenCalled();
+      expect(mockCountryService.getAllCountries).toHaveBeenCalledWith(1, 25);
     });
 
-    it('should throw error if unable to fetch countries', async () => {
-      // Mock service to throw error
-      countryService.getAllCountries = jest.fn().mockRejectedValue(new Error('Failed to fetch countries'));
+    it('should return an error response if fetching fails', async () => {
+      mockCountryService.getAllCountries.mockRejectedValue(new Error('Fetch failed'));
 
-      await expect(countryController.getAllCountries()).rejects.toThrow(BadRequestException);
+      const result = await controller.getAllCountries(1, 25);
+      expect(result).toEqual({
+        success: false,
+        message: 'Failed to fetch countries',
+        error: 'Fetch failed',
+      });
     });
   });
 
   describe('getCountryById', () => {
-    it('should return a country by id', async () => {
-      const countryId = '1';
-      const country = { id: countryId, name: 'Country 1', code: 'C1' };
+    it('should fetch a country by ID', async () => {
+      const mockResponse = { id: '1', name: 'Testland', code: 'TL' };
+      mockCountryService.getCountryById.mockResolvedValue(mockResponse);
 
-      // Mock service
-      countryService.getCountryById = jest.fn().mockResolvedValue(country);
-
-      const response = await countryController.getCountryById(countryId);
-
-      expect(response).toEqual({
-        statusCode: 200,
+      const result = await controller.getCountryById('1');
+      expect(result).toEqual({
+        success: true,
         message: 'Country fetched successfully',
-        data: country,
+        result: mockResponse,
       });
-      expect(countryService.getCountryById).toHaveBeenCalledWith(countryId);
+      expect(mockCountryService.getCountryById).toHaveBeenCalledWith('1');
     });
 
-    it('should throw NotFoundException if country not found', async () => {
-      const countryId = '1';
+    it('should return an error response if the country is not found', async () => {
+      mockCountryService.getCountryById.mockRejectedValue(
+        new NotFoundException('Country not found'),
+      );
 
-      // Mock service to throw error
-      countryService.getCountryById = jest.fn().mockRejectedValue(new NotFoundException('Country not found'));
-
-      await expect(countryController.getCountryById(countryId)).rejects.toThrow(NotFoundException);
+      const result = await controller.getCountryById('999');
+      expect(result).toEqual({
+        success: false,
+        message: 'Failed to fetch country',
+        error: 'Country not found',
+      });
     });
   });
 });

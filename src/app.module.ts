@@ -7,6 +7,7 @@ import typeorm from './config/typeorm';
 import { UsersModule } from '../src/users/users.module';
 import { AuthModule } from '../src/auth/auth.module';
 import { CountryModule } from '../src/countries/countries.module';
+import { CurrencyModule } from '../src/currency/currency.module';
 
 @Module({
   imports: [
@@ -21,7 +22,9 @@ import { CountryModule } from '../src/countries/countries.module';
     AuthModule,
     UsersModule,
     CountryModule,
-    // will add more module
+    CurrencyModule,
+    // BrandModule,
+    // WatchModule,
   ],
   controllers: [AppController],
   providers: [AppService],
