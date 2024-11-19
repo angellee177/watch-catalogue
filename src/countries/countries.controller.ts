@@ -1,14 +1,17 @@
-import { Controller, Get, Post, Param, Body, HttpStatus } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { Controller, Get, Post, Param, Body, HttpStatus, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBody, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import { CountryService } from './countries.service';
 import { CreateCountryDto } from './dto/create-country.dto';
 import { successResponse, errorResponse } from '../common/response.helper';
+import { JwtAuthGuard } from 'auth/guards/jwt-auth.guard';
 
 @ApiTags('Countries')
 @Controller('countries/v1')
 export class CountryController {
     constructor(private readonly countryService: CountryService) {}
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @Post()
     @ApiOperation({ summary: 'Create a new country' })
     @ApiBody({ description: 'Country creation data', type: CreateCountryDto })
@@ -27,6 +30,8 @@ export class CountryController {
         }
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @Get()
     @ApiOperation({ summary: 'Get all countries' })
     @ApiResponse({ status: 200, description: 'List of countries' })
@@ -39,6 +44,8 @@ export class CountryController {
         }
     }
 
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     @ApiOperation({ summary: 'Get a country by ID' })
     @ApiParam({ name: 'id', description: 'Country ID', type: 'string' })
