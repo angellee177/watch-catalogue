@@ -19,6 +19,9 @@ export class Watch {
   @ApiProperty({ description: 'Brand associated with the watch', type: () => Brand, nullable: true })
   brand: Brand;
 
+  @Column()
+  brandId: string;
+
   @Column({ unique: true })
   @ApiProperty({ description: 'Unique reference number for the watch' })
   referenceNumber: string;
@@ -32,6 +35,9 @@ export class Watch {
   @ApiProperty({ description: 'Currency associated with the retail price', type: () => Currency, nullable: true })
   currency: Currency;
 
+  @Column()
+  currencyId: string;
+
   @Column('date')
   @ApiProperty({ description: 'Release date of the watch' })
   releaseDate: string;
@@ -40,6 +46,9 @@ export class Watch {
   @JoinColumn({ name: 'countryId' })
   @ApiProperty({ description: 'Country associated with the watch', type: () => Country, nullable: true })
   country: Country;
+
+  @Column()
+  countryId: string;
 
   @CreateDateColumn()
   @ApiProperty({ description: 'Timestamp when the watch was created' })

@@ -2,23 +2,22 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Watch } from './entity/watch.entity';
 import { Repository } from 'typeorm';
-import algoliasearch from 'algoliasearch';
 import { CreateWatchDto } from './dto/create-watch.dto';
 import { UpdateWatchDto } from './dto/update-watch.dto';
-import { setLog } from 'common/logger.helper';
+import { setLog } from '../common/logger.helper';
+import { SearchWatchDto } from './dto/search-watch.dto';
+import { Country } from '../countries/entity/country.entity';
+import { Brand } from '../brands/entity/brand.entity';
+import { Currency } from '../currencies/entity/currency.entity';
 
 @Injectable()
 export class WatchService {
-    private algoliaClient;
-    private algoliaIndex;
-
     constructor(
         @InjectRepository(Watch) private readonly watchRepository: Repository<Watch>,
-    ) {
-        // Initialize Algolia client
-        // this.algoliaClient = algoliasearch('YourAlgoliaAppID', 'YourAlgoliaAPIKey');
-        this.algoliaIndex = this.algoliaClient.initIndex('watches');
-    }
+        @InjectRepository(Country) private countryRepository: Repository<Country>,
+        @InjectRepository(Brand) private brandRepository: Repository<Brand>,
+        @InjectRepository(Currency) private currencyRepository: Repository<Currency>,
+    ) {}
 
     /**
      * Create new watch
@@ -29,9 +28,6 @@ export class WatchService {
     async createWatch(createWatchDto: CreateWatchDto): Promise<Watch> {
         const watch = this.watchRepository.create(createWatchDto);
         const savedWatch = await this.watchRepository.save(watch);
-
-        // Add watch to Algolia
-        // await this.algoliaIndex.saveObject({ ...savedWatch, objectID: savedWatch.id });
 
         // Log success
         setLog({
@@ -56,7 +52,7 @@ export class WatchService {
             setLog({
                 level: 'info',
                 method: 'WatchService.update',
-                message: `Updating watch with ID: ${id}`,
+                message: `Updating watch with ID: ${id} and updatedData: ${updateWatchDto.countryId}`,
             });
 
             // Perform the update
@@ -83,9 +79,6 @@ export class WatchService {
                 throw new Error('Watch not found');
             }
 
-            // Update the watch in Algolia
-            // await this.algoliaIndex.partialUpdateObject({ ...updatedWatch, objectID: updatedWatch.id });
-
             // Log success
             setLog({
                 level: 'info',
@@ -107,42 +100,99 @@ export class WatchService {
     }
 
     /**
-     * Get all watches with pagination
+     * Get all watch by query
      * 
-     * @param page 
-     * @param limit 
+     * @param searchWatchDto 
      * @returns 
      */
-    async getAll(page: number = 1, limit: number = 25) {
-        const [watches, total] = await this.watchRepository.findAndCount({
-            relations: ['brand', 'currency', 'country'],
-            skip: (page - 1) * limit,
-            take: limit,
-        });
-
-        return {
+    async getAll(searchWatchDto: SearchWatchDto) {
+        const { 
+            name, 
+            brand, 
+            country, 
+            priceMax, 
+            priceMin, 
+            referenceNumber, 
+            page = 1, 
+            limit = 25
+        } = searchWatchDto;
+        
+        try {
+          const query = this.watchRepository.createQueryBuilder('watch');
+    
+          // Apply filters dynamically
+          if (name) {
+            query.andWhere('watch.name LIKE :name', { name: `%${name}%` });
+          }
+          
+          if (brand) {
+            const brandEntity = await this.brandRepository.findOne({ where: { name: brand } });
+            if (brandEntity) {
+              query.andWhere('watch.brandId = :brandId', { brandId: brandEntity.id });
+            }
+          }
+    
+          if (country) {
+            const countryEntity = await this.countryRepository.findOne({ where: { name: country } });
+            if (countryEntity) {
+              query.andWhere('watch.countryId = :countryId', { countryId: countryEntity.id });
+            }
+          }
+    
+          if (priceMax) {
+            query.andWhere('watch.retailPrice <= :priceMax', { priceMax });
+          }
+    
+          if (priceMin) {
+            query.andWhere('watch.retailPrice >= :priceMin', { priceMin });
+          }
+    
+          if (referenceNumber) {
+            query.andWhere('watch.referenceNumber LIKE :referenceNumber', { referenceNumber: `%${referenceNumber}%` });
+          }
+    
+          // Apply pagination
+          query.skip((page - 1) * limit).take(limit);
+    
+          // Apply relations
+          query.leftJoinAndSelect('watch.brand', 'brand');
+          query.leftJoinAndSelect('watch.country', 'country');
+          query.leftJoinAndSelect('watch.currency', 'currency');
+    
+          const [watches, total] = await query.getManyAndCount();
+    
+          return {
             data: watches.map((watch) => ({
-                id: watch.id,
-                name: watch.name,
-                referenceNumber: watch.referenceNumber,
-                retailPrice: watch.retailPrice,
-                releaseDate: watch.releaseDate,
-                brandId: watch.brand ? watch.brand.id : null,
-                brandName: watch.brand ? watch.brand.name : null,
-                currencyId: watch.currency ? watch.currency.id : null,
-                currencyName: watch.currency ? watch.currency.name : null,
-                countryId: watch.country ? watch.country.id : null,
-                countryName: watch.country ? watch.country.name : null,
-                createdAt: watch.createdAt,
-                updatedAt: watch.updatedAt,
+              id: watch.id,
+              name: watch.name,
+              referenceNumber: watch.referenceNumber,
+              retailPrice: watch.retailPrice,
+              releaseDate: watch.releaseDate,
+              brandId: watch.brand ? watch.brand.id : null,
+              brandName: watch.brand ? watch.brand.name : null,
+              currencyId: watch.currency ? watch.currency.id : null,
+              currencyCode: watch.currency ? watch.currency.code : null,
+              countryId: watch.country ? watch.country.id : null,
+              countryName: watch.country ? watch.country.name : null,
+              createdAt: watch.createdAt,
+              updatedAt: watch.updatedAt,
             })),
             meta: {
-                total,
-                page,
-                limit,
+              total,
+              page,
+              limit,
             },
-        };
-    }
+          };
+        } catch (error) {
+          setLog({
+            level: 'error',
+            method: 'WatchService.getAll',
+            message: 'Error while fetching watches',
+            error,
+          });
+          throw error;
+        }
+      }
 
     /**
      * Get watch detail
@@ -163,20 +213,5 @@ export class WatchService {
         }
 
         return watch;
-    }
-
-    /**
-     * Search watches by queries
-     * 
-     * @param query 
-     * @returns 
-     */
-    async searchWatches(query: string): Promise<any> {
-        const results = await this.algoliaIndex.search(query, {
-            attributesToRetrieve: ['id', 'name', 'brand', 'referenceNumber'],
-            hitsPerPage: 10,
-        });
-
-        return results.hits;
     }
 }
