@@ -7,7 +7,7 @@ import typeorm from './config/typeorm';
 import { UsersModule } from '../src/users/users.module';
 import { AuthModule } from '../src/auth/auth.module';
 import { CountryModule } from '../src/countries/countries.module';
-import { CurrencyModule } from '../src/currency/currency.module';
+import { CurrencyModule } from './currencies/currency.module';
 
 @Module({
   imports: [

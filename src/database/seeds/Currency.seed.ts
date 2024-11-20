@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { Currency } from "../../currency/entity/currency.entity";
+import { Currency } from "../../currencies/entity/currency.entity";
 import { Country } from "../../countries/entity/country.entity";
 import * as fs from "fs";
 import * as path from "path";

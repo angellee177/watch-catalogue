@@ -117,14 +117,33 @@ export class CurrencyService {
             message: `Updating currency with ID: ${id}`,
         });
 
-        await this.currencyRepository.update(id, updateCurrencyDto);
+        const result = await this.currencyRepository.update(id, updateCurrencyDto);
+        // Handle cases where the update doesn't find a matching currency
+        if (result.affected === 0) {
+            setLog({
+                level: 'warn',
+                method: 'CurrencyService.update',
+                message: `Currency with ID: ${id} not found`,
+            });
+            throw new Error('Currency not found');
+        }
+
+        // Retrieve the updated currency
         const updatedCurrency = await this.currencyRepository.findOne({ where: { id } });
+        if (!updatedCurrency) {
+            setLog({
+                level: 'warn',
+                method: 'CurrencyService.update',
+                message: `Currency with ID: ${id} not found`,
+            });
+            throw new Error('Currency not found');
+        }
 
         // Log success
         setLog({
-            level: 'info',
+            level: 'info', 
             method: 'CurrencyService.update',
-            message: `Currency updated successfully: ${updatedCurrency?.id}`,
+            message: `Currency updated successfully: ${updatedCurrency}`,
         });
 
         return updatedCurrency;
