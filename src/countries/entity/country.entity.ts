@@ -2,6 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 import { ApiProperty } from "@nestjs/swagger";
 import { Currency } from "../../currencies/entity/currency.entity";
 import { Brand } from "../../brands/entity/brand.entity";
+import { Watch } from "../../watches/entity/watch.entity";
 
 @Entity("country")
 export class Country {
@@ -38,6 +39,14 @@ export class Country {
     })
     @OneToMany(() => Brand, (brand) => brand.originCountry)
     brands: Brand[];
+
+    // One-to-many relationship with Watch
+    @ApiProperty({
+        description: 'List of watches associated with the country',
+        type: () => [Watch],
+    })
+    @OneToMany(() => Watch, (watch) => watch.country, { onDelete: 'SET NULL', nullable: true })
+    watches: Watch[];
 
     @ApiProperty({
         description: "Timestamp when the country was created",

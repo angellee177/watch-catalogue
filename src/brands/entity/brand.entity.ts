@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Country } from '../../countries/entity/country.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { Watch } from '../../watches/entity/watch.entity';
 
 @Entity('brand')
 export class Brand {
@@ -27,6 +28,14 @@ export class Brand {
     @ManyToOne(() => Country, (country) => country.brands, { onDelete: 'SET NULL', nullable: true })
     @JoinColumn({ name: 'countryId' })
     originCountry: Country;
+
+    // One-to-many relationship with Watch
+    @ApiProperty({
+        description: 'List of watches associated with the brand',
+        type: () => [Watch],
+    })
+    @OneToMany(() => Watch, (watch) => watch.brand, { onDelete: 'SET NULL', nullable: true })
+    watches: Watch[];
 
     @ApiProperty({
         description: 'The timestamp when the brand record was created',

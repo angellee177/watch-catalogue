@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany } from 'typeorm';
 import { Country } from '../../countries/entity/country.entity';
 import { ApiProperty } from '@nestjs/swagger';
+import { Watch } from '../../watches/entity/watch.entity';
 
 @Entity('currency')
 export class Currency {
@@ -36,6 +37,14 @@ export class Currency {
   @OneToOne(() => Country, (country) => country.currencies, { onDelete: 'SET NULL', nullable: true })
   @JoinColumn({ name: 'countryId' })
   country: Country;
+
+  // One-to-many relationship with Watch
+  @ApiProperty({
+    description: 'List of watches associated with the currency',
+    type: () => [Watch],
+  })
+  @OneToMany(() => Watch, (watch) => watch.currency, { onDelete: 'SET NULL', nullable: true })
+  watches: Watch[];
 
   @ApiProperty({
     description: 'The symbol of the currency (e.g. $, €)',
