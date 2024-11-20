@@ -29,6 +29,9 @@ export class Brand {
     @JoinColumn({ name: 'countryId' })
     originCountry: Country;
 
+    @Column()
+    countryId: string;
+
     // One-to-many relationship with Watch
     @ApiProperty({
         description: 'List of watches associated with the brand',
