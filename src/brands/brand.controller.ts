@@ -1,8 +1,10 @@
-import { Controller, Get, Param, Query, UseGuards } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from "@nestjs/common";
 import { ApiBearerAuth, ApiOperation, ApiParam, ApiQuery, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { BrandService } from "./brand.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { errorResponse, successResponse } from "../common/response.helper";
+import { UpdateBrandDto } from "./dto/update-brand.dto";
+import { CreateBrandDto } from "./dto/create-brand.dto";
 
 @ApiTags('Brands')
 @Controller('brands/v1')
@@ -41,6 +43,39 @@ export class BrandController {
             return successResponse('Brand fetched successfully', brand);
         } catch (error) {
             return errorResponse('Failed to fetch brand', error.message);
+        }
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    @Post()
+    @ApiOperation({ summary: 'Create a new brand' })
+    @ApiResponse({ status: 201, description: 'Brand created successfully' })
+    @ApiResponse({ status: 400, description: 'Invalid input' })
+    async create(@Body() createBrandDto: CreateBrandDto) {
+        try {
+            const brand = await this.brandService.createBrand(createBrandDto);
+            return successResponse('Brand created successfully', brand);
+        } catch (error) {
+            return errorResponse('Failed to create brand', error.message);
+        }
+    }
+
+    @ApiBearerAuth()
+    @UseGuards(JwtAuthGuard)
+    @Put(':id')
+    @ApiOperation({ summary: 'Update a brand by ID' })
+    @ApiResponse({ status: 200, description: 'Brand updated successfully' })
+    @ApiResponse({ status: 404, description: 'Brand not found' })
+    async update(
+        @Param('id') id: string,
+        @Body() updateBrandDto: UpdateBrandDto
+    ) {
+        try {
+            const brand = await this.brandService.updateBrand(id, updateBrandDto);
+            return successResponse('Brand updated successfully', brand);
+        } catch (error) {
+            return errorResponse('Failed to update brand', error.message);
         }
     }
 }

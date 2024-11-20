@@ -3,6 +3,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Brand } from "./entity/brand.entity";
 import { Repository } from "typeorm";
 import { setLog } from "../common/logger.helper";
+import { CreateBrandDto } from "./dto/create-brand.dto";
+import { UpdateBrandDto } from "./dto/update-brand.dto";
 
 @Injectable()
 export class BrandService {
@@ -89,6 +91,90 @@ export class BrandService {
                 error,
             });
 
+            throw error;
+        }
+    }
+
+    /**
+     * Create new brand
+     * 
+     * @param createBrandDto 
+     * @returns 
+     */
+    async createBrand(createBrandDto: CreateBrandDto): Promise<Brand> {
+        try {
+            setLog({
+                level: 'info',
+                method: 'BrandService.createBrand',
+                message: 'Creating a new brand',
+                others: JSON.stringify(createBrandDto),
+            });
+
+            const newBrand = this.brandRepository.create(createBrandDto);
+            const brand = await this.brandRepository.save(newBrand);
+
+            setLog({
+                level: 'info',
+                method: 'BrandService.createBrand',
+                message: `Brand ${brand.name} created successfully`,
+            });
+
+            return brand;
+        } catch (error) {
+            setLog({
+                level: 'error',
+                method: 'BrandService.createBrand',
+                message: 'Error while creating brand',
+                error,
+            });
+            throw error;
+        }
+    }
+
+    /**
+     * update a brand
+     * 
+     * @param id 
+     * @param updateBrandDto 
+     * @returns 
+     */
+    async updateBrand(id: string, updateBrandDto: UpdateBrandDto): Promise<Brand> {
+        try {
+            setLog({
+                level: 'info',
+                method: 'BrandService.updateBrand',
+                message: `Updating brand with ID: ${id}`,
+                others: JSON.stringify(updateBrandDto),
+            });
+
+            const brand = await this.brandRepository.findOne({ where: { id } });
+
+            if (!brand) {
+                setLog({
+                    level: 'warn',
+                    method: 'BrandService.updateBrand',
+                    message: `Brand with ID: ${id} not found`,
+                });
+                throw new NotFoundException(`Brand with ID ${id} not found`);
+            }
+
+            Object.assign(brand, updateBrandDto);
+            await this.brandRepository.save(brand);
+
+            setLog({
+                level: 'info',
+                method: 'BrandService.updateBrand',
+                message: `Brand ${brand.name} updated successfully`,
+            });
+
+            return brand;
+        } catch (error) {
+            setLog({
+                level: 'error',
+                method: 'BrandService.updateBrand',
+                message: 'Error while updating brand',
+                error,
+            });
             throw error;
         }
     }
