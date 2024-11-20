@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
-import { UsersController } from '../users.controller';
-import { UsersService } from '../users.service';
+import { UsersController } from '../user.controller';
+import { UsersService } from '../user.service';
 import { successResponse, errorResponse } from '../../common/response.helper';
 import { UserResultDto } from '../dto/user.dto';
 import { UpdateUserDto } from 'users/dto/update-user.dto';

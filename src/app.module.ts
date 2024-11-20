@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeorm from './config/typeorm';
-import { UsersModule } from '../src/users/users.module';
+import { UsersModule } from './users/user.module';
 import { AuthModule } from '../src/auth/auth.module';
 import { CountryModule } from '../src/countries/countries.module';
 import { CurrencyModule } from './currencies/currency.module';

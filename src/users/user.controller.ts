@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Delete, NotFoundException, ParseUUIDPipe, UnauthorizedException, Request, UseGuards } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
-import { UsersService } from './users.service';
+import { UsersService } from './user.service';
 import { errorResponse, successResponse } from '../common/response.helper';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';

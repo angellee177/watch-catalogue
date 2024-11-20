@@ -3,7 +3,7 @@ import { AuthService } from './auth.service';
 import { LoginUserDto } from '../users/dto/login-user.dto';
 import { RegisterUserDto } from '../users/dto/register-user.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
-import { UsersService } from '../users/users.service';
+import { UsersService } from '../users/user.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UserResultDto } from 'users/dto/user.dto';
 
