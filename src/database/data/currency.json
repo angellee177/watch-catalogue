@@ -304,5 +304,11 @@
         "name": "Syrian Pound",
         "symbol": "£",
         "countryCode": "SY"
-    }
+    },
+    {
+        "code": "USD",
+        "name": "United States Dollar",
+        "symbol": "$",
+        "countryCode": "US"
+    }      
 ]

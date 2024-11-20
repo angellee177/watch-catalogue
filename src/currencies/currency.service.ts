@@ -36,14 +36,15 @@ export class CurrencyService {
 
         return savedCurrency;
         } catch (error) {
-        // Log error
-        setLog({
-            level: 'error',
-            method: 'CurrencyService.create',
-            message: 'Error while creating currency',
-            error,
-        });
-        throw error;
+            // Log error
+            setLog({
+                level: 'error',
+                method: 'CurrencyService.create',
+                message: 'Error while creating currency',
+                error,
+            });
+
+            throw error;
         }
     }
 
@@ -81,6 +82,12 @@ export class CurrencyService {
         };
     }
 
+    /**
+     * Get currency Detail
+     * 
+     * @param id 
+     * @returns 
+     */
     async getOne(id: string): Promise<Currency> {
         try {
         // Log the attempt to fetch a currency by ID
@@ -94,10 +101,11 @@ export class CurrencyService {
         if (!currency) {
             // Log warning if currency not found
             setLog({
-            level: 'warn',
-            method: 'CurrencyService.getOne',
-            message: `Currency with ID: ${id} not found`,
+                level: 'warn',
+                method: 'CurrencyService.getOne',
+                message: `Currency with ID: ${id} not found`,
             });
+            
             throw new NotFoundException(`Currency with ID ${id} not found`);
         }
 
@@ -114,6 +122,13 @@ export class CurrencyService {
         }
     }
 
+    /**
+     * Update a currency
+     * 
+     * @param id 
+     * @param updateCurrencyDto 
+     * @returns 
+     */
     async update(id: string, updateCurrencyDto: UpdateCurrencyDto): Promise<Currency> {
         try {
         // Log the attempt to update the currency

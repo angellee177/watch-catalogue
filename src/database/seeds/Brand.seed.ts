@@ -29,7 +29,7 @@ export class BrandSeeder {
         setLog({
           level: 'info',
           method: 'BrandSeeder',
-          message: 'Currencies already exist!',
+          message: 'Brand already exist!',
         });
         return;
       }
@@ -80,7 +80,7 @@ export class BrandSeeder {
       setLog({
         level: 'error',
         method: 'BrandSeeder',
-        message: 'Error seeding currencies',
+        message: 'Error seeding Brand',
         error: error as Error,
       });
     }
