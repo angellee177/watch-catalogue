@@ -26,11 +26,11 @@ export class Watches1732075516801 implements MigrationInterface {
               {
                 name: 'referenceNumber',
                 type: 'varchar',
-                isUnique: true,
               },
               {
                 name: 'retailPrice',
                 type: 'bigint',
+                isNullable: true,
               },
               {
                 name: 'currencyId',
@@ -40,6 +40,7 @@ export class Watches1732075516801 implements MigrationInterface {
               {
                 name: 'releaseDate',
                 type: 'date',
+                isNullable: true, 
               },
               {
                 name: 'countryId',

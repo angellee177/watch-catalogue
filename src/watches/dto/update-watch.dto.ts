@@ -3,15 +3,6 @@ import { IsOptional, IsString, IsUUID, IsInt, IsDate } from 'class-validator';
 
 export class UpdateWatchDto {
   @ApiPropertyOptional({
-    description: 'Name of the watch (cannot be updated)',
-    type: String,
-    example: 'Rolex Submariner',
-  })
-  @IsOptional()
-  @IsString()
-  name?: string;
-
-  @ApiPropertyOptional({
     description: 'Unique reference number of the watch (optional)',
     type: String,
     example: '12345-ABCDE',

@@ -1,0 +1,465 @@
+[
+    {
+        "name": "Santos de Cartier",
+        "brand": "Cartier",
+        "referenceNumber": "WSSA0029",
+        "retailPrice": 7000,
+        "currency": "USD",
+        "releaseDate": "2024-01-15",
+        "country": "France"
+    },
+
+    {
+        "name": "Cartier Colisee Yellow Gold Diamond Bezel",
+        "brand": "Cartier",
+        "referenceNumber": "13722742",
+        "retailPrice": 9575,
+        "currency": "USD",
+        "releaseDate": "1980-01-01",
+        "country": "UK"
+    },
+    {
+        "name": "Cartier Tank Divan W6300356",
+        "brand": "Cartier",
+        "referenceNumber": "24174642",
+        "retailPrice": 3158,
+        "currency": "USD",
+        "releaseDate": "2020-01-01",
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Clé de Cartier WJCL0031",
+        "brand": "Cartier",
+        "referenceNumber": "24807738",
+        "retailPrice": 6344,
+        "currency": "USD",
+        "releaseDate": "2018-01-01",
+        "country": "CN"    
+    },
+    {
+        "name": "Cartier Ceinture Paris 18k Automatic",
+        "brand": "Cartier",
+        "referenceNumber": "27044167",
+        "retailPrice": 14997,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": "ES"
+
+},
+    {
+        "name": "Cartier Santos WSSA0023",
+        "brand": "Cartier",
+        "referenceNumber": "27725870",
+        "retailPrice": 4140,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "HK"
+    },
+    {
+        "name": "Cartier Panthère WSPN0006 Panthere Steel",
+        "brand": "Cartier",
+        "referenceNumber": "27725994",
+        "retailPrice": 4372,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "HK"
+    },
+    {
+        "name": "Cartier Santos Dumont Xl",
+        "brand": "Cartier",
+        "referenceNumber": "25777051",
+        "retailPrice": 6262,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "TW"
+    },
+    {
+        "name": "Cartier Santos Dumont W2SA0017",
+        "brand": "Cartier",
+        "referenceNumber": "25776989",
+        "retailPrice": 8781,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "TW"
+    },
+    {
+        "name": "Cartier Tortue With Diamond Case Small Size Tortue",
+        "brand": "Cartier",
+        "referenceNumber": "26929961",
+        "retailPrice": 9687,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Baignoire WB520004",
+        "brand": "Cartier",
+        "referenceNumber": "26940376",
+        "retailPrice": 9842,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Baignoire Small Size",
+        "brand": "Cartier",
+        "referenceNumber": "26940668",
+        "retailPrice": 9842,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Baignoire WB520005",
+        "brand": "Cartier",
+        "referenceNumber": "27000591",
+        "retailPrice": 14259,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Tank Must WSTA0041",
+        "brand": "Cartier",
+        "referenceNumber": "28452425",
+        "retailPrice": null,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "EE"
+    },
+    {
+        "name": "Cartier Tank Must W4TA0016",
+        "brand": "Cartier",
+        "referenceNumber": "27319930",
+        "retailPrice": 4829,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Santos De Cartier 2022 Large Dial",
+        "brand": "Cartier",
+        "referenceNumber": "27449571",
+        "retailPrice": null,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "UK"
+    },
+    {
+        "name": "Cartier Santos De Large Automatic Grey Dial Men's Watch Santos",
+        "brand": "Cartier",
+        "referenceNumber": "27449788",
+        "retailPrice": null,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "UK"
+    },
+    {
+        "name": "Cartier Ballon Bleu 33mm WE902066",
+        "brand": "Cartier",
+        "referenceNumber": "26940797",
+        "retailPrice": 13687,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Santos De Cartier Skeleton WHSA0016",
+        "brand": "Cartier",
+        "referenceNumber": "27099756",
+        "retailPrice": null,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "CH"
+    },
+    {
+        "name": "Cartier Santos Skeleton Green WHSA0028",
+        "brand": "Cartier",
+        "referenceNumber": "27099757",
+        "retailPrice": null,
+        "currency": "USD",
+        "releaseDate": null,
+        "country": null
+    },
+    {
+        "name": "Cartier Pasha de Cartier W31070M7",
+        "brand": "Cartier",
+        "referenceNumber": "12345678",
+        "retailPrice": 11900,
+        "currency": "USD",
+        "releaseDate": "2021-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Ronde Louis Cartier W6701008",
+        "brand": "Cartier",
+        "referenceNumber": "87654321",
+        "retailPrice": 11500,
+        "currency": "USD",
+        "releaseDate": "2020-01-01",
+        "country": "IT"
+    },
+    {
+        "name": "Cartier Ballon Bleu 42mm WE9007",
+        "brand": "Cartier",
+        "referenceNumber": "23456789",
+        "retailPrice": 17400,
+        "currency": "USD",
+        "releaseDate": "2019-01-01",
+        "country": "US"
+    },
+    {
+        "name": "Cartier Drive de Cartier WGNM0009",
+        "brand": "Cartier",
+        "referenceNumber": "34567890",
+        "retailPrice": 5200,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "JP"
+    },
+    {
+        "name": "Cartier Santos 100 W20073X8",
+        "brand": "Cartier",
+        "referenceNumber": "45678901",
+        "retailPrice": 6700,
+        "currency": "USD",
+        "releaseDate": "2018-01-01",
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Pasha de Cartier W31095M7",
+        "brand": "Cartier",
+        "referenceNumber": "56789012",
+        "retailPrice": 8500,
+        "currency": "USD",
+        "releaseDate": "2020-01-01",
+        "country": "ES"
+    },
+    {
+        "name": "Cartier Clé de Cartier WJCL0007",
+        "brand": "Cartier",
+        "referenceNumber": "67890123",
+        "retailPrice": 9400,
+        "currency": "USD",
+        "releaseDate": "2021-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Tank Américaine W2620047",
+        "brand": "Cartier",
+        "referenceNumber": "78901234",
+        "retailPrice": 14900,
+        "currency": "USD",
+        "releaseDate": "2019-01-01",
+        "country": "US"
+    },
+    {
+        "name": "Cartier Ballon Bleu 36mm WE902067",
+        "brand": "Cartier",
+        "referenceNumber": "89012345",
+        "retailPrice": 13200,
+        "currency": "USD",
+        "releaseDate": "2018-01-01",
+        "country": "HK"
+    },
+    {
+        "name": "Cartier Pasha de Cartier W31078M7",
+        "brand": "Cartier",
+        "referenceNumber": "90123456",
+        "retailPrice": 12900,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "UK"
+    },
+    {
+        "name": "Cartier Ronde Louis Cartier W6701009",
+        "brand": "Cartier",
+        "referenceNumber": "11223344",
+        "retailPrice": 14800,
+        "currency": "USD",
+        "releaseDate": "2020-01-01",
+        "country": "IT"
+    },
+    {
+        "name": "Cartier Santos 100 W20073X9",
+        "brand": "Cartier",
+        "referenceNumber": "22334455",
+        "retailPrice": 6800,
+        "currency": "USD",
+        "releaseDate": "2017-01-01",
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Ballon Bleu 40mm WE902075",
+        "brand": "Cartier",
+        "referenceNumber": "33445566",
+        "retailPrice": 15900,
+        "currency": "USD",
+        "releaseDate": "2019-01-01",
+        "country": "US"
+    },
+    {
+        "name": "Cartier Drive de Cartier WGNM0008",
+        "brand": "Cartier",
+        "referenceNumber": "44556677",
+        "retailPrice": 7200,
+        "currency": "USD",
+        "releaseDate": "2020-01-01",
+        "country": "JP"
+    },
+    {
+        "name": "Cartier Tank Américaine W2620048",
+        "brand": "Cartier",
+        "referenceNumber": "55667788",
+        "retailPrice": 15700,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Clé de Cartier WJCL0008",
+        "brand": "Cartier",
+        "referenceNumber": "66778899",
+        "retailPrice": 10100,
+        "currency": "USD",
+        "releaseDate": "2021-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Santos 100 W20073X10",
+        "brand": "Cartier",
+        "referenceNumber": "77889900",
+        "retailPrice": 6500,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Ballon Bleu 36mm WE902076",
+        "brand": "Cartier",
+        "referenceNumber": "88990011",
+        "retailPrice": 14500,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "US"
+
+    },
+    {
+        "name": "Cartier Pasha de Cartier W31085M7",
+        "brand": "Cartier",
+        "referenceNumber": "99001122",
+        "retailPrice": 11950,
+        "currency": "USD",
+        "releaseDate": "2020-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Ronde Louis Cartier W6701010",
+        "brand": "Cartier",
+        "referenceNumber": "12345678",
+        "retailPrice": 12000,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "IT"
+    },
+    {
+        "name": "Cartier Santos 100 W20073X11",
+        "brand": "Cartier",
+        "referenceNumber": "23456789",
+        "retailPrice": 6700,
+        "currency": "USD",
+        "releaseDate": "2019-01-01",
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Ballon Bleu 42mm WE902077",
+        "brand": "Cartier",
+        "referenceNumber": "34567890",
+        "retailPrice": 18500,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "US"
+    },
+    {
+        "name": "Cartier Pasha de Cartier W31090M7",
+        "brand": "Cartier",
+        "referenceNumber": "45678901",
+        "retailPrice": 12500,
+        "currency": "USD",
+        "releaseDate": "2021-01-01",
+        "country": "ES"
+
+    },
+    {
+        "name": "Cartier Drive de Cartier WGNM0009",
+        "brand": "Cartier",
+        "referenceNumber": "56789012",
+        "retailPrice": 8500,
+        "currency": "USD",
+        "releaseDate": "2020-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Tank Américaine W2620049",
+        "brand": "Cartier",
+        "referenceNumber": "67890123",
+        "retailPrice": 14000,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "UK"
+    },
+    {
+        "name": "Cartier Clé de Cartier WJCL0009",
+        "brand": "Cartier",
+        "referenceNumber": "78901234",
+        "retailPrice": 10500,
+        "currency": "USD",
+        "releaseDate": "2021-01-01",
+        "country": "FR"
+    },
+    {
+        "name": "Cartier Ballon Bleu 33mm WE902078",
+        "brand": "Cartier",
+        "referenceNumber": "89012345",
+        "retailPrice": 13800,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "US"
+    },
+    {
+        "name": "Cartier Santos 100 W20073X12",
+        "brand": "Cartier",
+        "referenceNumber": "90123456",
+        "retailPrice": 7600,
+        "currency": "USD",
+        "releaseDate": "2021-01-01",
+        "country": "CN"
+    },
+    {
+        "name": "Cartier Pasha de Cartier W31076M7",
+        "brand": "Cartier",
+        "referenceNumber": "11223344",
+        "retailPrice": 12600,
+        "currency": "USD",
+        "releaseDate": "2022-01-01",
+        "country": "JP"
+    },
+    {
+        "name": "Cartier Ronde Louis Cartier W6701020",
+        "brand": "Cartier",
+        "referenceNumber": "22334455",
+        "retailPrice": 11000,
+        "currency": "USD",
+        "releaseDate": "2019-01-01",
+        "country": "IT"
+    },
+    {
+        "name": "Cartier Ballon Bleu 42mm WE902079",
+        "brand": "Cartier",
+        "referenceNumber": "33445566",
+        "retailPrice": 18200,
+        "currency": "USD",
+        "releaseDate": "2023-01-01",
+        "country": "US"
+    }                  
+]

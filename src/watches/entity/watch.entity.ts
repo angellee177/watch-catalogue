@@ -15,7 +15,7 @@ export class Watch {
   name: string;
 
   @ManyToOne(() => Brand, { nullable: true })
-  @JoinColumn({ name: 'brand' })
+  @JoinColumn({ name: 'brandId' })
   @ApiProperty({ description: 'Brand associated with the watch', type: () => Brand, nullable: true })
   brand: Brand;
 
@@ -28,7 +28,7 @@ export class Watch {
   retailPrice: number;
 
   @ManyToOne(() => Currency, { nullable: true })
-  @JoinColumn({ name: 'currency' })
+  @JoinColumn({ name: 'currencyId' })
   @ApiProperty({ description: 'Currency associated with the retail price', type: () => Currency, nullable: true })
   currency: Currency;
 
@@ -37,7 +37,7 @@ export class Watch {
   releaseDate: string;
 
   @ManyToOne(() => Country, { nullable: true })
-  @JoinColumn({ name: 'country' })
+  @JoinColumn({ name: 'countryId' })
   @ApiProperty({ description: 'Country associated with the watch', type: () => Country, nullable: true })
   country: Country;
 

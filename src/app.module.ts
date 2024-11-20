@@ -9,6 +9,7 @@ import { AuthModule } from '../src/auth/auth.module';
 import { CountryModule } from '../src/countries/countries.module';
 import { CurrencyModule } from './currencies/currency.module';
 import { BrandModule } from './brands/brand.module';
+import { WatchModule } from './watches/watch.module';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { BrandModule } from './brands/brand.module';
     CountryModule,
     CurrencyModule,
     BrandModule,
-    // WatchModule,
+    WatchModule,
   ],
   controllers: [AppController],
   providers: [AppService],

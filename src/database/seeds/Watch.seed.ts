@@ -1,130 +1,125 @@
 import { DataSource } from "typeorm";
+import { Brand } from "../../brands/entity/brand.entity";
+import { Country } from "../../countries/entity/country.entity";
+import * as fs from "fs";
+import * as path from "path";
+import { setLog } from "../../common/logger.helper"; // Adjust path as needed
+import { Currency } from "../../currencies/entity/currency.entity";
 import { Watch } from "../../watches/entity/watch.entity";
-import { Brand } from "brands/entity/brand.entity";
-import { Currency } from "currencies/entity/currency.entity";
-import { Country } from "countries/entity/country.entity";
-import * as fs from 'fs';
-import * as path from 'path';
-import * as csv from 'csv-parser';
-import { setLog } from '../../common/logger.helper';
 
 export class WatchSeeder {
-    constructor(private dataSource: DataSource) {}
+  constructor(private dataSource: DataSource) {}
 
-    async run() {
-        const watchRepository = this.dataSource.getRepository(Watch);
-        const brandRepository = this.dataSource.getRepository(Brand);
-        const currencyRepository = this.dataSource.getRepository(Currency);
-        const countryRepository = this.dataSource.getRepository(Country);
+  async run() {
+    const brandRepository = this.dataSource.getRepository(Brand);
+    const countryRepository = this.dataSource.getRepository(Country);
+    const currencyRepository = this.dataSource.getRepository(Currency);
+    const watchRepository = this.dataSource.getRepository(Watch);
 
-        try {
-            const directoryPath = path.resolve(__dirname, '../data/watch/ready');
-            const files = fs.readdirSync(directoryPath).filter((file) => file.endsWith('.csv'));
+    try {
+      // Dynamically load the watch data from a JSON file
+      const filePath = path.resolve(__dirname, "../data/watches/cartier.json");
+      const rawData = fs.readFileSync(filePath, "utf-8");
 
-            if (files.length === 0) {
-                setLog({
-                    level: 'warn',
-                    method: 'WatchSeeder',
-                    message: `No CSV files found in directory: ${directoryPath}`,
-                });
+      // Parse the JSON data
+      const watchData = JSON.parse(rawData);
 
-                return;
-            }
+      // Check if watches already exist to avoid duplication
+      const existingWatch = await watchRepository.find({
+        where: watchData.map((watch: { referenceNumber: string }) => ({ referenceNumber: watch.referenceNumber })),
+      });
 
-            for (const file of files) {
-                const filePath = path.join(directoryPath, file);
-                setLog({
-                    level: 'info',
-                    method: 'WatchSeeder',
-                    message: `Processing file: ${filePath}`,
-                });
+      if (existingWatch.length > 0) {
+        setLog({
+          level: 'info',
+          method: 'WatchSeeder',
+          message: 'Watches already exist!',
+        });
+        return;
+      }
 
-                const readStream = fs.createReadStream(filePath);
-
-                // Process the file line by line
-                await new Promise<void>((resolve, reject) => {
-                    readStream
-                        .pipe(csv())
-                        .on('data', async (row: any) => {
-                            try {
-                                const existingWatch = await watchRepository.findOne({
-                                    where: { referenceNumber: row.reference_number },
-                                });
-
-                                if (existingWatch) {
-                                    setLog({
-                                        level: 'info',
-                                        method: 'WatchSeeder',
-                                        message: `Skipping existing watch: ${row.reference_number}`
-                                    });
-
-                                    return;
-                                }
-
-                                const brand = await brandRepository.findOne({ 
-                                    where: { name: row.brand }
-                                });
-
-                                const currency = await currencyRepository.findOne({
-                                    where: { code: row.currency }
-                                });
-
-                                const country = await countryRepository.findOne({
-                                    where: { name: row.country }
-                                });
-
-                                const watch = new Watch();
-                                watch.name = row.name || '';
-                                watch.brand = brand || null;
-                                watch.referenceNumber = row.reference_number || '';
-                                watch. retailPrice = parseInt(row.price.replace (/[^\d]/g, ''), 10) || 0; 
-                                watch. currency = currency || null;
-                                watch.releaseDate = row.release_date || '';
-                                watch.country = country || null;
-                                
-                                await watchRepository.save(watch);
-                                setLog({
-                                    level: 'info',
-                                    method: 'WatchSeeder',
-                                    message: `Saved watch: ${row.name}`,
-                                });
-                            } catch (err) {
-                                setLog({
-                                    level: 'error',
-                                    method: 'WatchSeeder',
-                                    message: `Error processing row: ${JSON.stringify(row)}`,
-                                    error: err as Error,
-                                });
-                            }
-                        })
-                        .on('end', () => {
-                            setLog({
-                                level: 'info',
-                                method: 'WatchSeeder',
-                                message: `Finished processing file: ${filePath}`,
-                            });
-
-                            resolve();
-                        })
-                        .on('error', (error) => {
-                            setLog({
-                                level: 'error',
-                                method: 'WatchSeeder',
-                                message: `Error reading file: ${filePath}`,
-                                error: error as Error,
-                            });
-
-                            reject(error);
-                        });
-                });
-            }
-        } catch (error) {
+      // Prepare watches for insertion
+      const watchesToSave = await Promise.all(
+        watchData.map(async (watchData: {
+          name: string;
+          brand: string;
+          referenceNumber: string;
+          retailPrice: number;
+          countryCode: string;
+          currency: string;
+          releaseDate: string;
+        }) => {
+          // Find the corresponding country
+          const country = await countryRepository.findOne({ where: { code: watchData.countryCode } });
+          if (!country) {
             setLog({
-                level: 'error',
-                method: 'WatchSeeder',
-                message: `Error during seeding process`,
-                error: error as Error,
-            })
-        }
+              level: 'warn',
+              method: 'WatchSeeder',
+              message: `Skipping watch due to missing country with code: ${watchData.countryCode}`,
+            });
+            return null;
+          }
+
+          // Find the corresponding currency
+          const currency = await currencyRepository.findOne({ where: { code: watchData.currency } });
+          if (!currency) {
+            setLog({
+              level: 'warn',
+              method: 'WatchSeeder',
+              message: `Skipping watch due to missing currency with code: ${watchData.currency}`,
+            });
+            return null;
+          }
+
+          // Find the corresponding brand
+          const brand = await brandRepository.findOne({ where: { name: watchData.brand } });
+          if (!brand) {
+            setLog({
+              level: 'warn',
+              method: 'WatchSeeder',
+              message: `Skipping watch due to missing brand with name: ${watchData.brand}`,
+            });
+            return null;
+          }
+
+          const watch = new Watch();
+          watch.name = watchData.name;
+          watch.brand = brand;
+          watch.referenceNumber = watchData.referenceNumber;
+          watch.retailPrice = watchData.retailPrice;
+          watch.currency = currency;
+          watch.country = country;
+          watch.releaseDate = watchData.releaseDate;
+
+          return watch;
+        })
+      );
+
+      // Filter out null values
+      const validWatchesToSave = watchesToSave.filter(watch => watch !== null);
+
+      if (validWatchesToSave.length > 0) {
+        // Save all watches to the database
+        await watchRepository.save(validWatchesToSave);
+        setLog({
+          level: 'info',
+          method: 'WatchSeeder',
+          message: 'Watches have been seeded',
+        });
+      } else {
+        setLog({
+          level: 'warn',
+          method: 'WatchSeeder',
+          message: 'No valid watches to seed',
+        });
+      }
+    } catch (error) {
+      setLog({
+        level: 'error',
+        method: 'WatchSeeder',
+        message: 'Error seeding watches',
+        error: error as Error,
+      });
     }
+  }
 }
