@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToOne, OneToMany } from "typeorm";
 import { ApiProperty } from "@nestjs/swagger";
 import { Currency } from "../../currencies/entity/currency.entity";
+import { Brand } from "../../brands/entity/brand.entity";
 
 @Entity("country")
 export class Country {
@@ -29,6 +30,14 @@ export class Country {
     @OneToOne(() => Currency, (currency) => currency.country)
     @ApiProperty({ type: () => Currency, description: 'The currency associated with this country' })
     currencies: Currency[];
+
+    @ApiProperty({
+        description: 'The brands associated with the country',
+        type: () => [Brand], // Swagger will list related brands
+        nullable: true,
+    })
+    @OneToMany(() => Brand, (brand) => brand.originCountry)
+    brands: Brand[];
 
     @ApiProperty({
         description: "Timestamp when the country was created",

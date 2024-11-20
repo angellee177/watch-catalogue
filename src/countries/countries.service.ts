@@ -6,8 +6,6 @@ import { setLog } from '../common/logger.helper';
 
 @Injectable()
 export class CountryService {
-    private readonly logger = new Logger(CountryService.name);
-
     constructor(
         @InjectRepository(Country)
         private readonly countryRepository: Repository<Country>,
@@ -42,34 +40,47 @@ export class CountryService {
         }
     }
 
-    // Find all countries with pagination
+    /**
+     * Find all country with pagination
+     * 
+     * @param page 
+     * @param limit 
+     * @returns 
+     */
     async getAllCountries(page: number = 1, limit: number = 25) {
         try {
         // Fetch countries with pagination
         const [countries, total] = await this.countryRepository.findAndCount({
-            skip: (page - 1) * limit,  // Skip records based on page
-            take: limit,  // Limit the number of records returned
+            skip: (page - 1) * limit,  // Skip records based on page.
+            take: limit,  // Limit the number of records returned.
         });
 
         return {
-            data: countries,  // Return countries directly
+            data: countries,  // Return countries directly.
             meta: {
-                total,  // Total number of countries
-                page,   // Current page number
-                limit,  // Limit per page (25 by default)
+                total,  // Total number of countries.
+                page,   // Current page number.
+                limit,  // Limit per page (25 by default).
             },
         };
         } catch (error) {
-        setLog({
-            level: 'error',
-            method: 'CountryService.getAllCountries',
-            message: 'Error while fetching countries',
-            error,
-        });
-        throw error;
+            setLog({
+                level: 'error',
+                method: 'CountryService.getAllCountries',
+                message: 'Error while fetching countries',
+                error,
+            });
+
+            throw error;
         }
     }
 
+    /**
+     * Get a country by id
+     * 
+     * @param id 
+     * @returns 
+     */
     async getCountryById(id: string): Promise<Country> {
         try {
             setLog({
