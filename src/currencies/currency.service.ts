@@ -47,12 +47,18 @@ export class CurrencyService {
         }
     }
 
-    // Find all currencies with pagination and related country data
+    /**
+     * Get all currency
+     * 
+     * @param page 
+     * @param limit 
+     * @returns 
+     */
     async getAll(page: number = 1, limit: number = 25) {
         const [currencies, total] = await this.currencyRepository.findAndCount({
-        relations: ['country'], // Include the related 'country' entity
-        skip: (page - 1) * limit, // Skip based on the page
-        take: limit, // Limit the results
+            relations: ['country'], // Include the related 'country' entity
+            skip: (page - 1) * limit, // Skip based on the page
+            take: limit, // Limit the results
         });
 
         return {

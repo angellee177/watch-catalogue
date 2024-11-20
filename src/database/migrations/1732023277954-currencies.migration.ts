@@ -60,6 +60,14 @@ export class Currency1732023277954 implements MigrationInterface {
         }
     
     public async down(queryRunner: QueryRunner): Promise<void> {
+        // Drop the foreign key first
+        const table = await queryRunner.getTable('currency');
+        const foreignKey = table.foreignKeys.find(
+            (fk) => fk.columnNames.indexOf('currencyId') !== -1
+        );
+        await queryRunner.dropForeignKey('currency', foreignKey);
+
+        // Drop the currency table
         await queryRunner.dropTable('currency');
     }
 }
