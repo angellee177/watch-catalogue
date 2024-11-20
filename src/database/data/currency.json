@@ -310,5 +310,35 @@
         "name": "United States Dollar",
         "symbol": "$",
         "countryCode": "US"
-    }      
+    },
+    {
+        "code": "JPY",
+        "name": "Japanese Yen",
+        "symbol": "¥",
+        "countryCode": "JP"
+    },
+    {
+        "code": "KRW",
+        "name": "South Korean Won",
+        "symbol": "₩",
+        "countryCode": "KR"
+    },
+    {
+        "code": "THB",
+        "name": "Thai Baht",
+        "symbol": "฿",
+        "countryCode": "TH"
+    },
+    {
+        "code": "TWD",
+        "name": "New Taiwan Dollar",
+        "symbol": "NT$",
+        "countryCode": "TW"
+    },
+    {
+        "code": "AUD",
+        "name": "Australian Dollar",
+        "symbol": "A$",
+        "countryCode": "AU"
+    }          
 ]
