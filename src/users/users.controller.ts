@@ -27,6 +27,8 @@ export class UsersController {
     return successResponse('Get all user', result);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   @ApiOperation({ summary: 'Retrieve a single user by ID' })
   @ApiParam({
@@ -48,7 +50,7 @@ export class UsersController {
   })
   async findOne(@Param('id') id: string){
     try {
-      const user = await this.usersService.findOne(id);
+            const user = await this.usersService.findOne(id);
 
       return successResponse('User successfully retrieved.', user);
     } catch (error) {
