@@ -5,6 +5,7 @@ import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { errorResponse, successResponse } from "../common/response.helper";
 import { UpdateBrandDto } from "./dto/update-brand.dto";
 import { CreateBrandDto } from "./dto/create-brand.dto";
+import { setLog } from "../common/logger.helper";
 
 @ApiTags('Brands')
 @Controller('brands/v1')
@@ -63,7 +64,7 @@ export class BrandController {
 
     @ApiBearerAuth()
     @UseGuards(JwtAuthGuard)
-    @Put(':id')
+    @Put('/update/:id')
     @ApiOperation({ summary: 'Update a brand by ID' })
     @ApiResponse({ status: 200, description: 'Brand updated successfully' })
     @ApiResponse({ status: 404, description: 'Brand not found' })
@@ -72,6 +73,11 @@ export class BrandController {
         @Body() updateBrandDto: UpdateBrandDto
     ) {
         try {
+            setLog({
+                level: 'info',
+                method: 'BrandController.update',
+                message: `Update brand with id: ${id}`
+            });
             const brand = await this.brandService.updateBrand(id, updateBrandDto);
             return successResponse('Brand updated successfully', brand);
         } catch (error) {

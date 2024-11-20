@@ -61,7 +61,7 @@ export class CurrencyController {
 
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
-  @Put(':id')
+  @Put('/update/:id')
   @ApiOperation({ summary: 'Update a currency by ID' })
   @ApiParam({ name: 'id', description: 'Currency ID', type: 'string' })
   @ApiBody({ description: 'Currency update data', type: UpdateCurrencyDto })

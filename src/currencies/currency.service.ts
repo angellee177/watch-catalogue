@@ -105,7 +105,7 @@ export class CurrencyService {
                 method: 'CurrencyService.getOne',
                 message: `Currency with ID: ${id} not found`,
             });
-            
+
             throw new NotFoundException(`Currency with ID ${id} not found`);
         }
 
@@ -131,52 +131,55 @@ export class CurrencyService {
      */
     async update(id: string, updateCurrencyDto: UpdateCurrencyDto): Promise<Currency> {
         try {
-        // Log the attempt to update the currency
-        setLog({
-            level: 'info',
-            method: 'CurrencyService.update',
-            message: `Updating currency with ID: ${id}`,
-        });
-
-        const result = await this.currencyRepository.update(id, updateCurrencyDto);
-        // Handle cases where the update doesn't find a matching currency
-        if (result.affected === 0) {
+            // Log the attempt to update the currency
             setLog({
-                level: 'warn',
+                level: 'info',
                 method: 'CurrencyService.update',
-                message: `Currency with ID: ${id} not found`,
+                message: `Updating currency with ID: ${id}`,
             });
-            throw new Error('Currency not found');
-        }
 
-        // Retrieve the updated currency
-        const updatedCurrency = await this.currencyRepository.findOne({ where: { id } });
-        if (!updatedCurrency) {
+            const result = await this.currencyRepository.update(id, updateCurrencyDto);
+            // Handle cases where the update doesn't find a matching currency
+            if (result.affected === 0) {
+                setLog({
+                    level: 'warn',
+                    method: 'CurrencyService.update',
+                    message: `Currency with ID: ${id} not found`,
+                });
+
+                throw new Error('Currency not found');
+            }
+
+            // Retrieve the updated currency
+            const updatedCurrency = await this.currencyRepository.findOne({ where: { id } });
+            if (!updatedCurrency) {
+                setLog({
+                    level: 'warn',
+                    method: 'CurrencyService.update',
+                    message: `Currency with ID: ${id} not found`,
+                });
+
+                throw new Error('Currency not found');
+            }
+
+            // Log success
             setLog({
-                level: 'warn',
+                level: 'info', 
                 method: 'CurrencyService.update',
-                message: `Currency with ID: ${id} not found`,
+                message: `Currency updated successfully: ${updatedCurrency}`,
             });
-            throw new Error('Currency not found');
-        }
 
-        // Log success
-        setLog({
-            level: 'info', 
-            method: 'CurrencyService.update',
-            message: `Currency updated successfully: ${updatedCurrency}`,
-        });
-
-        return updatedCurrency;
+            return updatedCurrency;
         } catch (error) {
-        // Log error
-        setLog({
-            level: 'error',
-            method: 'CurrencyService.update',
-            message: 'Error while updating currency',
-            error,
-        });
-        throw error;
+            // Log error
+            setLog({
+                level: 'error',
+                method: 'CurrencyService.update',
+                message: 'Error while updating currency',
+                error,
+            });
+
+            throw error;
         }
     }
 }
