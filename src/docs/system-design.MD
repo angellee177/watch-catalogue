@@ -108,3 +108,42 @@
 | symbol         | VARCHAR (10)                   |
 | createdAt      | Timestamp                      |
 | updatedAt      | Timestamp                      |
+
+## D. Deep Dive
+The main focus of this API is the Search catalogue feature, lets do estimation below:
+### Estimate:
+1. Daily Active User 1 Millions 
+2. Average number of watches added per day 1,000 watches / day 
+3. Average number of watches size (include image): 500 kb 
+4. Yearly Watches storage 1,000 Watches * 360 days * 500 kb = 182,5 GB 
+5. Proximity Search 3 queries per user * 1,000,000 users = 3 millions queries/day 
+6. Read Per second 3 millions read per day / (24 hours * 3600 seconds) = 34,72 reads/seconds
+
+### Solution
+Usually to improve the search feature, there is a few solution we can do:
+1. **Caching,** <br>
+   Redis is the most popular caching, while for this case, 
+   i notice NestJs having their own caching feature, we can use the NestJs caching module.
+   So, for caching we have 2 options here, 
+   1. **using Redis combine with NestJs built-in cache**
+      - pros: costly saving,
+      - cons: might need more budget for Redis
+   2. **using NestJs Built-in caching.**
+      - pros: Simple to set up, no external dependencies, cost-effective for small-scale apps 
+      - cons: Limited scalability (in-memory), may not handle high traffic or horizontal scaling well
+2. **Database Indexing**  <br>
+   - Pros: Improves query performance for searches on specific columns (e.g., watch name, brand, etc.)
+   - Cons: Indexes can slow down writes, more storage required <br> <br>
+   another solution if we want to use Database indexing, 
+   Actually we can just *create a new table specialized for read* that contains data specialized for read. However, this solution have their own pros and cons as well. 
+   Here is the pros and cons below: <br> <br> 
+    - Pros: Optimized for reading, main table won't be impacted by indexing when doing write and update, more flexible because we can apply complex indexing here.
+    - Const: Might need more larger storage space and not suitable for handling large data set, might lead to data duplication because we keep the copy of the data.
+3. **Algolia** <br> 
+    Algolia is a hosted search service designed to provide fast and scalable search functionality with minimal setup.
+      - Pros: Fast search, full-text search capabilities, and advanced filtering; managed service
+      - Cons: Additional cost, less control over infrastructure
+4. **Elasticsearch** <br>
+    Being used by most Big companies to handle large scale of data and support complex search-queries
+   - Pros: Highly scalable, powerful full-text search, and analytics; distributed 
+   - Cons: Complex setup, maintenance, and higher infrastructure cost
