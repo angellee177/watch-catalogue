@@ -4,6 +4,7 @@ import { UserSeeder } from "./User.seed"; // Import your UserSeeder
 import { CountrySeeder } from "./Country.seed"; // Import your CountrySeeder
 import { setLog } from "../../common/logger.helper"; // Adjust path as needed
 import { CurrencySeeder } from "./Currency.seed";
+import { BrandSeeder } from "./Brand.seed";
 
 // Function to load and run seeders
 const runSeeders = async () => {
@@ -45,6 +46,15 @@ const runSeeders = async () => {
       message: 'Running Currency Seeder...',
     });
     await currencySeeder.run();
+
+    // Run Watch Brand Seeder
+    const brandSeeder = new BrandSeeder(dataSource);
+    setLog({
+      level: 'info',
+      method: 'runSeeders',
+      message: 'Running Watch Brand Seeder...',
+    });
+    await brandSeeder.run();
 
     setLog({
       level: 'info',

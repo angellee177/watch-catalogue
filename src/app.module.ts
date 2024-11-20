@@ -8,6 +8,7 @@ import { UsersModule } from '../src/users/users.module';
 import { AuthModule } from '../src/auth/auth.module';
 import { CountryModule } from '../src/countries/countries.module';
 import { CurrencyModule } from './currencies/currency.module';
+import { BrandModule } from './brands/brand.module';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { CurrencyModule } from './currencies/currency.module';
     UsersModule,
     CountryModule,
     CurrencyModule,
-    // BrandModule,
+    BrandModule,
     // WatchModule,
   ],
   controllers: [AppController],

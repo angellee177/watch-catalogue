@@ -1,0 +1,27 @@
+[
+    { "name": "Rolex", "countryCode": "CH" },
+    { "name": "Omega", "countryCode": "CH" },
+    { "name": "Patek Philippe", "countryCode": "CH" },
+    { "name": "Audemars Piguet", "countryCode": "CH" },
+    { "name": "Breitling", "countryCode": "CH" },
+    { "name": "Tudor", "countryCode": "CH" },
+    { "name": "Cartier", "countryCode": "FR" },
+    { "name": "Panerai", "countryCode": "IT" },
+    { "name": "IWC", "countryCode": "CH" },
+    { "name": "Seiko", "countryCode": "JP" },
+    { "name": "Jaeger-LeCoultre", "countryCode": "CH" },
+    { "name": "TAG Heuer", "countryCode": "CH" },
+    { "name": "Hublot", "countryCode": "CH" },
+    { "name": "Zenith", "countryCode": "CH" },
+    { "name": "Vacheron Constantin", "countryCode": "CH" },
+    { "name": "Longines", "countryCode": "CH" },
+    { "name": "A. Lange & Söhne", "countryCode": "DE" },
+    { "name": "Richard Mille", "countryCode": "CH" },
+    { "name": "Breguet", "countryCode": "CH" },
+    { "name": "Ulysse Nardin", "countryCode": "CH" },
+    { "name": "Hamilton", "countryCode": "CH" },
+    { "name": "NOMOS", "countryCode": "DE" },
+    { "name": "Oris", "countryCode": "CH" },
+    { "name": "Sinn", "countryCode": "DE" }
+  ]
+  
