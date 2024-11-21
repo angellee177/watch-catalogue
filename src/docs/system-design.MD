@@ -147,3 +147,22 @@ Usually to improve the search feature, there is a few solution we can do:
     Being used by most Big companies to handle large scale of data and support complex search-queries
    - Pros: Highly scalable, powerful full-text search, and analytics; distributed 
    - Cons: Complex setup, maintenance, and higher infrastructure cost
+
+## E. High Level Design
+![High Level Design for Watch search feature](image.png)
+### We need Database Replication because:
+1. **Highly availability**,  by replicating the DB across different locations, even though the master DB are down, we still can access the data stored in another database server.
+2. **Reliability**, If one of the DB are destroyed, data will still preserved. We don't need to worry about data loss, because of the data is replicated across multiple locations.
+3. **Better Performance**, All writes and read are happen in Master DB, meanwhile for read operations are distributed across replica DB. 
+This model improves performances because it allows more queries to processed  in parallel.
+
+### End-to-end flow summarized
+1. **User sends a request** (e.g., search or CRUD operation) -> **Load Balancer** routes the request to the **API Server**.
+2. **API Server checks the Cache**:
+   - **Cache Hit**: Return cached response.
+   - **Cache Miss**: Forward request to the **Search Service** or **Database Cluster**.
+3. If search:
+   - **Search Service** queries **Algolia** or **Database** and updates the cache.
+4. If CRUD operation:
+   - **Watch Service** or **User Service** writes data to the **Master DB**, which syncs with replicas.
+5. **API Server returns the response** to the user.
