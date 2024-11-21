@@ -108,7 +108,7 @@ Once the application is running, we can access the Swagger API documentation to 
 http://localhost:${your_port}/api-docs#
 ```
 - Replace `${your_port}` with the port defined in your `.env` file or the default (e.g., `8000`).
-- **Example**: If the application is running on port `8000`, visit `http://localhost:8000/api-docs#` to access the API documentation.re to replace ${your_port} with the port your application is running on.
+- **Example**: If the application is running on port `8000`, visit `http://localhost:8000/api-docs#` to access the API documentation.
 
 ## Postman
 **Note:** <br>

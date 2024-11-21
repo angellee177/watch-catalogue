@@ -135,7 +135,7 @@ Usually to improve the search feature, there is a few solution we can do:
    - Pros: Improves query performance for searches on specific columns (e.g., watch name, brand, etc.)
    - Cons: Indexes can slow down writes, more storage required <br> <br>
    another solution if we want to use Database indexing, 
-   Actually we can just *create a new table specialized for read* that contains data specialized for read. However, this solution have their own pros and cons as well. 
+   Actually we can just *create a new table* that contains data specialized for read. However, this solution have their own pros and cons as well. 
    Here is the pros and cons below: <br> <br> 
     - Pros: Optimized for reading, main table won't be impacted by indexing when doing write and update, more flexible because we can apply complex indexing here.
     - Const: Might need more larger storage space and not suitable for handling large data set, might lead to data duplication because we keep the copy of the data.
