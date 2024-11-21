@@ -12,8 +12,8 @@ const config = {
     username: process.env.PG_USER,
     password: process.env.PG_PASSWORD,
     database: process.env.PG_DB,
-    entities: [join(__dirname, '**', '*.entity.{ts,js}')], // Handles src and dist paths
-    migrations: [join(__dirname, '**', '*.migration.{ts,js}')],
+    entities: [join(__dirname, '/../**/*.entity{.ts,.js}')], // Handles src and dist paths
+    migrations: [join(__dirname, '/../../database/migrations/**/*{.ts,.js}')],
     autoLoadEntities: true,
     synchronize: false,
 }
